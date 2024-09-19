@@ -58,7 +58,7 @@ function actualizarListaGastos(){
         // Añadimos a la cadena HTML el nombre del gasto, su valor y un botón para eliminarlo.
         // El método 'toFixed(2)' se usa para mostrar el valor con dos decimales.
         htmlLista += `<li> 
-                        <strong>${elemento}</strong> - USD ${valorGasto.toFixed(2)} 
+                        <strong>${elemento}</strong> USD ${valorGasto.toFixed(2)} 
                         <strong>${descripcionGasto}</strong>
                         <button onclick="eliminarGasto(${posicion}); ">Eliminar</button>
                     </li>`;
@@ -83,7 +83,7 @@ function limpiar(){
     document.getElementById('nombreGasto').value = '';
     // Borramos el valor del campo de texto para el valor del gasto.
     document.getElementById('valorGasto').value = ''; 
-
+    // ** Borra el valor de campo de descripcion del gasto
     document.getElementById('descripcionGasto').value = ''; 
 }
 
@@ -98,3 +98,23 @@ function eliminarGasto(posicion){
     // Actualizamos la lista de gastos después de eliminar el elemento.
     actualizarListaGastos();
 }
+
+// Segundo Desafio
+// ** Función para validar el valor del gasto
+// Función para validar el valor del gasto
+// Función para validar el valor del gasto
+function validarValorGasto() {
+    let valorGastoInput = document.getElementById('valorGasto');
+    let valorGasto = valorGastoInput.value;
+
+    // Permitir solo números y limitar a 5 dígitos
+    if (valorGasto.length > 3) {
+        valorGastoInput.value = valorGasto.slice(0, 3);
+    }
+}
+
+// Añadir el evento de 'input' al campo de valor del gasto
+document.getElementById('valorGasto').addEventListener('input', validarValorGasto);
+
+
+

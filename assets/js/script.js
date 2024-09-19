@@ -2,6 +2,7 @@
 // para cada gasto. Los arreglos permiten registrar múltiples gastos.
 let listaNombresGastos = [];  // Arreglo para almacenar los nombres de los gastos
 let listaValoresGasto = [];   // Arreglo para almacenar los valores correspondientes a cada gasto
+let listaDescripcion = [];
 
 // Esta función se ejecuta cuando el usuario hace clic en un botón en la interfaz.
 // Se encarga de registrar un nuevo gasto.
@@ -11,9 +12,12 @@ function clickBoton(){
     let nombreGasto = document.getElementById('nombreGasto').value;
     // Capturamos el valor del gasto, de la misma manera, obteniendo el valor del input con el id 'valorGasto'.
     let valorGasto = document.getElementById('valorGasto').value; 
+    // ** Capturamos la informacion ingresada por el usuario, obteniendo el valor del input con el id 'descripcionGasto'.
+    let descripcionGasto = document.getElementById('descripcionGasto').value; 
 
 
-    // Ejercicio 1
+
+    // ** Ejercicio 1
     let valorNumericoGasto = Number(valorGasto);
 
     if (valorNumericoGasto > 150){
@@ -24,6 +28,7 @@ function clickBoton(){
     // Agregamos el nombre y el valor del gasto a los arreglos respectivos.
     listaNombresGastos.push(nombreGasto);  // Añade el nombre del gasto al final del arreglo.
     listaValoresGasto.push(valorGasto);    // Añade el valor del gasto al final del arreglo.
+    listaDescripcion.push(descripcionGasto); // ** Añade la descripcion del gasto
 
     // Llamamos a la función actualizarListaGastos para que se actualice la lista de gastos mostrada en la interfaz.
     actualizarListaGastos();
@@ -36,6 +41,7 @@ function actualizarListaGastos(){
     // Obtenemos el elemento HTML donde se mostrará el total de los gastos.
     const totalElementos = document.getElementById('totalGastos');
     
+
     // Inicializamos una cadena vacía que contendrá el HTML para la lista de gastos.
     let htmlLista = '';
     // Inicializamos una variable para almacenar el total de los gastos.
@@ -46,11 +52,15 @@ function actualizarListaGastos(){
     listaNombresGastos.forEach((elemento, posicion) => {
         // Convertimos el valor del gasto de la posición actual a un número (ya que se captura como texto).
         const valorGasto = Number(listaValoresGasto[posicion]);
+        //** Obtenemos la descripcion correspondientes
+        const descripcionGasto = listaDescripcion[posicion];
 
         // Añadimos a la cadena HTML el nombre del gasto, su valor y un botón para eliminarlo.
         // El método 'toFixed(2)' se usa para mostrar el valor con dos decimales.
-        htmlLista += `<li> ${elemento} - USD ${valorGasto.toFixed(2)} 
-                    <button onclick="eliminarGasto(${posicion}); ">Eliminar</button>
+        htmlLista += `<li> 
+                        <strong>${elemento}</strong> - USD ${valorGasto.toFixed(2)} 
+                        <strong>${descripcionGasto}</strong>
+                        <button onclick="eliminarGasto(${posicion}); ">Eliminar</button>
                     </li>`;
 
         // Calculamos el total de los gastos sumando el valor actual al acumulador.
@@ -73,6 +83,8 @@ function limpiar(){
     document.getElementById('nombreGasto').value = '';
     // Borramos el valor del campo de texto para el valor del gasto.
     document.getElementById('valorGasto').value = ''; 
+
+    document.getElementById('descripcionGasto').value = ''; 
 }
 
 // Función para eliminar un gasto de la lista.

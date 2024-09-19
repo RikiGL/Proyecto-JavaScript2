@@ -15,7 +15,8 @@ body {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="description"]{/* Agrego estilo tambien al tercer Recuadro*/
     font-size: 1rem;
     width: calc(100% - 20px);
     padding: 10px;
@@ -112,3 +113,7 @@ ul li:last-child {
     color: #fff;
 
 }
+
+
+
+

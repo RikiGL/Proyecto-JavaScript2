@@ -71,11 +71,11 @@ function actualizarListaGastos(){
         // Añadimos a la cadena HTML el nombre del gasto, su valor y un botón para eliminarlo.
         // El método 'toFixed(2)' se usa para mostrar el valor con dos decimales.
         htmlLista += `<li> 
-                        <strong>${elemento}</strong> USD ${valorGasto.toFixed(2)} 
-                        <strong>${descripcionGasto}</strong>
-                        <button onclick="eliminarGasto(${posicion}); ">Eliminar</button>
-                        <button onclick="prepararReemplazo(${posicion}, this);">Reemplazar</button>
-                    </li>`;
+                <strong>${elemento}</strong> USD ${valorGasto.toFixed(2)} 
+                <strong>${descripcionGasto}</strong>
+                <button style="color: white; background-color: red;" onclick="eliminarGasto(${posicion});">Eliminar</button>
+                <button style="color: white; background-color: green;" onclick="prepararReemplazo(${posicion}, this);">Reemplazar</button>
+            </li>`;
 
 
         // Calculamos el total de los gastos sumando el valor actual al acumulador.

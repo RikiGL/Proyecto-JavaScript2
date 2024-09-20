@@ -2,11 +2,21 @@
 // para cada gasto. Los arreglos permiten registrar múltiples gastos.
 let listaNombresGastos = [];  // Arreglo para almacenar los nombres de los gastos
 let listaValoresGasto = [];   // Arreglo para almacenar los valores correspondientes a cada gasto
-let listaDescripcion = [];
+let listaDescripcion = []; // ** Segunndo Desafio
+
+let enModoEdicion = false; // Variable para indicar si se está editando un gasto
+
 
 // Esta función se ejecuta cuando el usuario hace clic en un botón en la interfaz.
 // Se encarga de registrar un nuevo gasto.
 function clickBoton(){
+
+    if (enModoEdicion) {
+        alert('Por favor complete la edición antes de agregar un nuevo gasto.');
+        return; // Detiene la ejecución si está en modo de edición
+    }
+
+
     // Capturamos la información ingresada por el usuario en los campos de texto del HTML.
     // Usamos el método 'getElementById' para obtener el valor del input con el id 'nombreGasto'.
     let nombreGasto = document.getElementById('nombreGasto').value;
@@ -15,15 +25,18 @@ function clickBoton(){
     // ** Capturamos la informacion ingresada por el usuario, obteniendo el valor del input con el id 'descripcionGasto'.
     let descripcionGasto = document.getElementById('descripcionGasto').value; 
 
-
-
     // ** Ejercicio 1
     let valorNumericoGasto = Number(valorGasto);
 
     if (valorNumericoGasto > 150){
         alert(' Gasto considerablemente alto ')
-    }
+    } 
 
+    if (nombreGasto == ''|| valorGasto == '' ||descripcionGasto ==  ''){
+        alert('Por favor ingrese todo los campos')
+        return;
+
+    }
 
     // Agregamos el nombre y el valor del gasto a los arreglos respectivos.
     listaNombresGastos.push(nombreGasto);  // Añade el nombre del gasto al final del arreglo.
@@ -61,7 +74,9 @@ function actualizarListaGastos(){
                         <strong>${elemento}</strong> USD ${valorGasto.toFixed(2)} 
                         <strong>${descripcionGasto}</strong>
                         <button onclick="eliminarGasto(${posicion}); ">Eliminar</button>
+                        <button onclick="prepararReemplazo(${posicion}, this);">Reemplazar</button>
                     </li>`;
+
 
         // Calculamos el total de los gastos sumando el valor actual al acumulador.
         totalGastos += Number(valorGasto);
@@ -94,10 +109,70 @@ function eliminarGasto(posicion){
     listaNombresGastos.splice(posicion, 1);
     // También eliminamos el valor correspondiente en la misma posición.
     listaValoresGasto.splice(posicion, 1);
-    
+    //** 
+    listaDescripcion.splice(posicion, 1); 
     // Actualizamos la lista de gastos después de eliminar el elemento.
     actualizarListaGastos();
 }
+
+
+/*
+function reemplazar (posicion){
+
+    // Capturamos los valores actuales ingresados en los campos de texto
+    let nombreGasto = document.getElementById('nombreGasto').value;
+    let valorGasto = document.getElementById('valorGasto').value; 
+    let descripcionGasto = document.getElementById('descripcionGasto').value;
+
+    listaNombresGastos.splice(posicion, 1, nombreGasto );
+   
+    listaValoresGasto.splice(posicion, 1, valorGasto);
+    //** 
+    listaDescripcion.splice(posicion, 1, descripcionGasto); 
+    
+    actualizarListaGastos();
+
+    
+}
+
+*/
+
+function prepararReemplazo(posicion, boton) {
+
+    enModoEdicion = true; // Cambia el estado a modo de edición
+
+    document.getElementById('nombreGasto').value = listaNombresGastos[posicion];
+    document.getElementById('valorGasto').value = listaValoresGasto[posicion];
+    document.getElementById('descripcionGasto').value = listaDescripcion[posicion];
+
+    // Cambia el texto del botón a "Guardar Cambios"
+    boton.innerText = 'Guardar Cambios';
+    
+    // Al hacer clic en el botón, se guardan los cambios y se restaura el texto original
+    boton.onclick = function() {
+        let nuevoNombreGasto = document.getElementById('nombreGasto').value;
+        let nuevoValorGasto = document.getElementById('valorGasto').value;
+        let nuevaDescripcionGasto = document.getElementById('descripcionGasto').value;
+
+        listaNombresGastos[posicion] = nuevoNombreGasto;
+        listaValoresGasto[posicion] = nuevoValorGasto;
+        listaDescripcion[posicion] = nuevaDescripcionGasto;
+
+        actualizarListaGastos();
+        
+        // Restaura el texto del botón a "Reemplazar"
+        boton.innerText = 'Reemplazar';
+        boton.onclick = function() {
+            prepararReemplazo(posicion, boton);
+        };
+        enModoEdicion = false; // Cambia el estado de vuelta a falso
+    };
+}
+
+
+
+
+
 
 // Segundo Desafio
 // ** Función para validar el valor del gasto

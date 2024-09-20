@@ -55,6 +55,11 @@ ul li {
     border-bottom: 1px solid #eee;
     display: flex;
     justify-content: space-between;
+
+    width: 100%;
+    gap: 10px; /* Espacio entre los elementos */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 ul li:last-child {
@@ -113,7 +118,37 @@ ul li:last-child {
     color: #fff;
 
 }
+/*
+AGREGADO POR MI
+*/
+ul li .gasto-nombre {
+    flex: 2; /* Mayor flexibilidad para que el nombre del gasto ocupe más espacio */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Si es demasiado largo, se mostrará como ... */
+    text-align: left; /* Alinear a la izquierda */
+}
 
+ul li .gasto-valor {
+    flex: 1; /* El valor ocupara menos espacio */
+    white-space: nowrap;
+    text-align: left; /* Alinear a la izquierda */
+}
 
+ul li .gasto-descripcion {
+    flex: 3; /* Permitir mas espacio a la descripción */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Si la descripción es muy larga, se cortará con "..." */
+    text-align: left; /* Alinear a la izquierda */
+}
 
+ul li .gasto-botones {
+    display: flex;
+    gap: 5px; /* Espacio entre botones */
+}
 
+ul li button {
+    padding: 5px 10px;
+    white-space: nowrap;
+}
